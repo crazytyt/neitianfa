@@ -24,15 +24,22 @@ nei_onepage::nei_onepage(QWidget *parent) :
             model->setItem(i, j, firstRow);
 
         }
-        QStandardItem *firstRow = new QStandardItem(QString(""));
-        firstRow->setBackground(QBrush(QColor(215, 208, 214)));
-        firstRow->setEditable(false);
-        model->setItem(i+1, 0, firstRow);
+        for (j = 0; j < NUM_COL; j++) {
+            if (j == 0) {
+                QStandardItem *firstRow = new QStandardItem(QString(""));
+                firstRow->setBackground(QBrush(QColor(215, 208, 214)));
+                firstRow->setEditable(false);
+                model->setItem(i+1, 0, firstRow);
+            } else {
+                QStandardItem *firstRow = new QStandardItem(QString(""));
+                model->setItem(i+1, j, firstRow);
+            }
+        }
+
     }
 
     for (int i = 0; i < NUM_COL; i++)
         ui->tableView->setColumnWidth(i, 50);
-
 
 }
 

@@ -20,8 +20,6 @@ class nei_onepage : public QWidget
 
     enum {  NUM_PAGE = 30, NUM_ROW = 8, NUM_COL = 16 };
 
-
-
 public:
     explicit nei_onepage(QWidget *parent = 0);
     ~nei_onepage();
