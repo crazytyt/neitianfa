@@ -5,6 +5,10 @@
 #include <QTime>
 #include <QTimer>
 #include <QDebug>
+#include <QStandardItemModel>
+#include <QListWidget>
+#include <QStackedWidget>
+#include <QVBoxLayout>
 
 namespace Ui {
 class MainWindow;
@@ -14,18 +18,30 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-    enum { NUM_COL = 200, NUM_ROW = 15 };
 
+signals:
+
+public slots:
+    void timeout_action(void);
 public:
 
 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     QTimer  *timer;
-    
+
+private slots:
+    void on_start_clicked();
+
+    void on_reset_clicked();
+
 private:
-    
+    void generate_data(void);
+    int mCurTime;
     Ui::MainWindow *ui;
+
+    QStackedWidget *mStack;
+
 };
 
 

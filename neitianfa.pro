@@ -13,8 +13,17 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    nei_onepage.cpp \
+    nei_result.cpp \
+    nei_bottom.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    nei_onepage.h \
+    nei_result.h \
+    nei_bottom.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    nei_onepage.ui \
+    nei_result.ui \
+    nei_bottom.ui

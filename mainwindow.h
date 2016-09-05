@@ -3,7 +3,12 @@
 
 #include <QMainWindow>
 #include <QTime>
+#include <QTimer>
 #include <QDebug>
+#include <QStandardItemModel>
+#include <QListWidget>
+#include <QStackedWidget>
+#include <QVBoxLayout>
 
 namespace Ui {
 class MainWindow;
@@ -13,7 +18,6 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-    enum { NUM_COL = 200, NUM_ROW = 15 };
 
 public:
 
@@ -21,8 +25,15 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+
+private slots:
+
 private:
+
     Ui::MainWindow *ui;
+
+    QStackedWidget *mStack;
+
 };
 
 
