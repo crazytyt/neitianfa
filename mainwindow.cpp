@@ -1,9 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "nei_onepage.h"
-#include "nei_result.h"
-#include "nei_bottom.h"
+#include "nei_common.h"
+
+
+nei_bottom *mBottom;
+nei_onepage *mOnepage;
+nei_result *mRes;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,9 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mStack = new QStackedWidget(this);
 
-    nei_bottom *mBottom = new nei_bottom;
-    nei_onepage *mOnepage = new nei_onepage;
-    nei_result *mRes = new nei_result;
+    mBottom = new nei_bottom;
+    mOnepage = new nei_onepage;
+    mRes = new nei_result;
 
     mStack->addWidget(mOnepage);
     mStack->addWidget(mRes);

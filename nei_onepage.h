@@ -26,6 +26,14 @@ public:
 
     int mRaw[NUM_PAGE][NUM_ROW][NUM_COL];
     int mResult[NUM_PAGE][NUM_ROW][NUM_COL];
+    int mCorrect[NUM_PAGE][NUM_ROW][NUM_COL];
+    void tSetPosition(int a, int b);
+    int mCurrentPage;
+    int mCurrentRow;
+    int mCurrentCol;
+
+    QStandardItemModel *model;
+    void display_onepage(int index);
 
 private:
     Ui::nei_onepage *ui;

@@ -21,7 +21,8 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     nei_onepage.h \
     nei_result.h \
-    nei_bottom.h
+    nei_bottom.h \
+    nei_common.h
 
 FORMS    += mainwindow.ui \
     nei_onepage.ui \
