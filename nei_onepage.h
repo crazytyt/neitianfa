@@ -20,6 +20,11 @@ class nei_onepage : public QWidget
 
     enum {  NUM_PAGE = 30, NUM_ROW = 8, NUM_COL = 16 };
 
+signals:
+
+public slots:
+    void slot_update_page(void);
+    void slot_update_pos(QStandardItem*);
 public:
     explicit nei_onepage(QWidget *parent = 0);
     ~nei_onepage();
@@ -34,6 +39,8 @@ public:
 
     QStandardItemModel *model;
     void display_onepage(int index);
+    void clear_result(void);
+    void clear_all(void);
 
 private:
     Ui::nei_onepage *ui;

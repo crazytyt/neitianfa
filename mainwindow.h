@@ -32,8 +32,6 @@ private:
 
     Ui::MainWindow *ui;
 
-    QStackedWidget *mStack;
-
 };
 
 

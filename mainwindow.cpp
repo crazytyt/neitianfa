@@ -7,6 +7,8 @@
 nei_bottom *mBottom;
 nei_onepage *mOnepage;
 nei_result *mRes;
+QStackedWidget *mStack;
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -37,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     window->setLayout(mainLayout);
     setCentralWidget(window);
 
+    QObject::connect(mBottom, SIGNAL(sig_update_page()), mOnepage, SLOT(slot_update_page()));
 }
 
 MainWindow::~MainWindow()
