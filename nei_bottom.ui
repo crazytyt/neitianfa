@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>774</width>
-    <height>112</height>
+    <width>768</width>
+    <height>100</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,9 +16,9 @@
   <widget class="QLabel" name="time">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>20</y>
-     <width>131</width>
+     <x>70</x>
+     <y>30</y>
+     <width>161</width>
      <height>51</height>
     </rect>
    </property>
@@ -77,9 +77,9 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>0</y>
-     <width>51</width>
+     <x>100</x>
+     <y>10</y>
+     <width>91</width>
      <height>21</height>
     </rect>
    </property>
@@ -98,8 +98,8 @@
   <widget class="QPushButton" name="start">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>20</y>
+     <x>340</x>
+     <y>30</y>
      <width>131</width>
      <height>51</height>
     </rect>
@@ -111,14 +111,14 @@
     </font>
    </property>
    <property name="text">
-    <string>开  始</string>
+    <string>开始</string>
    </property>
   </widget>
   <widget class="QPushButton" name="reset">
    <property name="geometry">
     <rect>
-     <x>560</x>
-     <y>20</y>
+     <x>600</x>
+     <y>30</y>
      <width>121</width>
      <height>51</height>
     </rect>
@@ -130,7 +130,7 @@
     </font>
    </property>
    <property name="text">
-    <string>重   做</string>
+    <string>重做</string>
    </property>
   </widget>
  </widget>

@@ -19,8 +19,14 @@ class nei_bottom : public QWidget
 signals:
     void sig_update_page(void);
 
+    void sig_15min_handle(void);
+    void sig_30min_handle(void);
+
 public slots:
     void timeout_action(void);
+    void slot_15min_handle(void);
+    void slot_30min_handle(void);
+
 
 public:
     explicit nei_bottom(QWidget *parent = 0);

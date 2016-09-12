@@ -1,54 +1,30 @@
 #include "nei_onepage.h"
 #include "ui_nei_onepage.h"
 
-
 #include "nei_common.h"
 
 void nei_onepage::slot_update_page()
 {
-    int i, j, num;
-    QStandardItem *item;
-    QString str;
-    bool ok;
 
-    /* save the calculate result */
-    for (i = 1; i < 16; i += 2) {
-        for (j = 1; j < 16; j++) {
-                item = model->item(i, j);
-                str = item->text();
-                num = str.toInt(&ok, 10);
-                if (ok == true)
-                    mResult[mCurrentPage][(mCurrentRow - 1) / 2][mCurrentCol - 1] = num;
-                else
-                    mResult[mCurrentPage][(mCurrentRow - 1) / 2][mCurrentCol - 1] = 100;
-                //qDebug() << i << " " << j << " " << num;
-        }
-
-    }
+    save_onepage();
 
     /* update the page, total 30, update first 15 */
     mCurrentPage++;
+    mCurrentRow = 1;
+    mCurrentCol = 1;
+    clear_result();
+    display_onepage(mCurrentPage);
 
-    if (mCurrentPage == 15) {
 
-    } else if (mCurrentPage == 30) {
+    tSetPosition(1, 1);
 
-    } else {
 
-        display_onepage(mCurrentPage);
-
-        clear_result();
-        tSetPosition(1, 1);
-
-        mCurrentRow = 1;
-        mCurrentCol = 1;
-    }
 
 }
 
-void nei_onepage::slot_update_pos(QStandardItem *item)
+void nei_onepage::slot_update_pos(QStandardItem* item)
 {
-
+    static int j = 0;
 
     mCurrentCol++;
     if (mCurrentCol == 16) {
@@ -59,7 +35,8 @@ void nei_onepage::slot_update_pos(QStandardItem *item)
     }
 
     tSetPosition(mCurrentRow, mCurrentCol);
-   // qDebug() << mCurrentRow << "  " << mCurrentCol;
+    //qDebug() << mCurrentRow << "  " << mCurrentCol;
+    //qDebug() << j++ << " -----";
 }
 
 nei_onepage::nei_onepage(QWidget *parent) :
@@ -74,7 +51,8 @@ nei_onepage::nei_onepage(QWidget *parent) :
 
     model = new QStandardItemModel(16, 16, this);
     ui->tableView->setModel(model);
-    ui->tableView->resize(QSize(824, 505));
+    //ui->tableView->resize(QSize(900, 805));
+    ui->tableView->setGeometry(QRect(10, 10, 850, 850));
     ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 
     for (i=0; i < NUM_ROW * 2; i += 2) {
@@ -145,11 +123,13 @@ void nei_onepage::display_onepage(int index)
 {
     int i, j;
 
-    for (i = 0; i < NUM_ROW * 2; i += 2) {
+    disconnect(model, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(slot_update_pos(QStandardItem*)));
+    for (i = 0; i < NUM_ROW; i++) {
         for (j = 0; j < NUM_COL; j++) {
-            model->item(i, j)->setText(QString::number(mRaw[index][i][j]));
+            model->item(i * 2, j)->setText(QString::number(mRaw[index][i][j]));
         }
     }
+    connect(model, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(slot_update_pos(QStandardItem*)));
 }
 
 void nei_onepage::clear_result()
@@ -157,6 +137,7 @@ void nei_onepage::clear_result()
     int i, j;
     QStandardItem *item;
 
+    disconnect(model, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(slot_update_pos(QStandardItem*)));
     for (i = 1; i < 16; i += 2) {
         for (j = 1; j < 16; j++) {
                 item = model->item(i, j);
@@ -164,6 +145,7 @@ void nei_onepage::clear_result()
                 item->setText(QString(" "));
         }
     }
+    connect(model, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(slot_update_pos(QStandardItem*)));
 }
 
 void nei_onepage::clear_all()
@@ -171,11 +153,36 @@ void nei_onepage::clear_all()
     int i, j;
     QStandardItem *item;
 
-    for (i = 0; i < 16; i += 2) {
+    disconnect(model, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(slot_update_pos(QStandardItem*)));
+    for (i = 0; i < 16; i++) {
         for (j = 0; j < 16; j++) {
                 item = model->item(i, j);
                 item->setText(QString(" "));
         }
+    }
+    connect(model, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(slot_update_pos(QStandardItem*)));
+}
+
+void nei_onepage::save_onepage()
+{
+    int i, j, num;
+    QStandardItem *item;
+    QString str;
+    bool ok;
+
+    /* save the calculate result */
+    for (i = 1; i < 16; i += 2) {
+        for (j = 1; j < 16; j++) {
+                item = model->item(i, j);
+                str = item->text();
+                num = str.toInt(&ok, 10);
+                if (ok == true)
+                    mResult[mCurrentPage][(i - 1) / 2][j - 1] = num;
+                else
+                    mResult[mCurrentPage][(i - 1) / 2][j - 1] = 100;
+                //qDebug() << i << " " << j << " " << num;
+        }
+
     }
 }
 
@@ -192,7 +199,7 @@ void nei_onepage::generate_data()
         for (j = 0; j < NUM_ROW; j++) {
             for (p = 0; p < NUM_COL; p++) {
                 mRaw[i][j][p] = qrand() % ((high + 1) - low) + low;
-                mResult[i][j][p] = 0;
+                mResult[i][j][p] = 200;
             }
         }
     }
@@ -204,4 +211,6 @@ void nei_onepage::generate_data()
             }
         }
     }
+
+
 }

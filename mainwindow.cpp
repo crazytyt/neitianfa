@@ -35,11 +35,14 @@ MainWindow::MainWindow(QWidget *parent) :
     mainLayout->setStretchFactor(mStack, 8);
     mainLayout->setStretchFactor(mBottom, 1);
 
-    QWidget *window = new QWidget();
-    window->setLayout(mainLayout);
-    setCentralWidget(window);
+    twindow = new QWidget();
+    twindow->setLayout(mainLayout);
+    twindow->setGeometry(QRect(0, 0, 2000, 1900));
+    setCentralWidget(twindow);
 
+    //window->resize(QSize(800,400));
     QObject::connect(mBottom, SIGNAL(sig_update_page()), mOnepage, SLOT(slot_update_page()));
+
 }
 
 MainWindow::~MainWindow()

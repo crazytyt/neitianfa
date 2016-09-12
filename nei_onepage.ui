@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>753</width>
+    <width>881</width>
     <height>703</height>
    </rect>
   </property>
@@ -14,14 +14,6 @@
    <string>Form</string>
   </property>
   <widget class="QTableView" name="tableView">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>30</y>
-     <width>801</width>
-     <height>541</height>
-    </rect>
-   </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
    </property>

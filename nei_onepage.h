@@ -18,16 +18,17 @@ class nei_onepage : public QWidget
 {
     Q_OBJECT
 
-    enum {  NUM_PAGE = 30, NUM_ROW = 8, NUM_COL = 16 };
+
 
 signals:
 
 public slots:
     void slot_update_page(void);
-    void slot_update_pos(QStandardItem*);
+    void slot_update_pos(QStandardItem *);
 public:
     explicit nei_onepage(QWidget *parent = 0);
     ~nei_onepage();
+    enum {  NUM_PAGE = 30, NUM_ROW = 8, NUM_COL = 16 };
 
     int mRaw[NUM_PAGE][NUM_ROW][NUM_COL];
     int mResult[NUM_PAGE][NUM_ROW][NUM_COL];
@@ -42,11 +43,12 @@ public:
     void clear_result(void);
     void clear_all(void);
 
-private:
-    Ui::nei_onepage *ui;
-
+    void save_onepage(void);
     void generate_data(void);
 
+
+private:
+    Ui::nei_onepage *ui;
 };
 
 #endif // NEI_ONEPAGE_H
