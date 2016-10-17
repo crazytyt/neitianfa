@@ -103,8 +103,8 @@ void nei_bottom::init_timer()
 
 }
 
-const int time_int = 50;
-//const int time_int = 1000;
+//const int time_int = 50;
+const int time_int = 1000;
 void nei_bottom::on_start_clicked()
 {
     if (mOnepage->mCurrentPage != 15) {

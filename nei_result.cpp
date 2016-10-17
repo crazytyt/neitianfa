@@ -1,4 +1,4 @@
-#include "nei_result.h"
+﻿#include "nei_result.h"
 #include "ui_nei_result.h"
 
 #include "nei_common.h"
@@ -73,7 +73,7 @@ void nei_result::cal_para()
 	}
 
 	R1 = X1max - X1min;
-	R2 - X2max - X2min;
+    R2 = X2max - X2min;
 
 	x1sum = x2sum = 0;
 	for (i = 0; i < 15; i++) {

@@ -1,4 +1,4 @@
-#include "nei_onepage.h"
+﻿#include "nei_onepage.h"
 #include "ui_nei_onepage.h"
 
 #include "nei_common.h"
@@ -24,7 +24,8 @@ void nei_onepage::slot_update_page()
 
 void nei_onepage::slot_update_pos(QStandardItem* item)
 {
-    static int j = 0;
+    //static int j = 0;
+    Q_UNUSED(item);
 
     mCurrentCol++;
     if (mCurrentCol == 16) {
