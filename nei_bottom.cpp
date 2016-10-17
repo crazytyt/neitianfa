@@ -63,7 +63,7 @@ void nei_bottom::slot_30min_handle()
     ui->start->setEnabled(true);
 
     mRes->cal_para();
-    mStack->setCurrentIndex(1);
+    mStack->setCurrentIndex(2);
 }
 
 nei_bottom::nei_bottom(QWidget *parent) :
@@ -93,7 +93,6 @@ void nei_bottom::display_time(int time)
 	QTextStream(&str) << " " << time / 60 << " : " << time % 60;
     ui->time->setText(str);
 
-    //ui->
 }
 
 void nei_bottom::init_timer()
@@ -115,16 +114,16 @@ void nei_bottom::on_start_clicked()
         init_timer();
 
         mOnepage->display_onepage(0);
-        mStack->setCurrentIndex(0);
+        mStack->setCurrentIndex(1);
         ui->start->setEnabled(false);
         timer->start(time_int);
         mOnepage->tSetPosition(1, 1);
-qDebug() << "first --";
+        qDebug() << "first --";
         /* pause */
     } else {
         mOnepage->clear_all();
 
-        mStack->setCurrentIndex(0);
+        mStack->setCurrentIndex(1);
         ui->start->setEnabled(false);
         timer->start(time_int);
         mOnepage->display_onepage(15);
@@ -146,7 +145,7 @@ void nei_bottom::on_reset_clicked()
 
     mOnepage->clear_all();
     mOnepage->generate_data();
-    mStack->setCurrentIndex(0);
+    mStack->setCurrentIndex(1);
     init_timer();
     timer->stop();
     ui->start->setEnabled(true);

@@ -1,14 +1,14 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #include "nei_common.h"
 
-
 nei_bottom *mBottom;
 nei_onepage *mOnepage;
 nei_result *mRes;
+nei_login *mLogin;
 QStackedWidget *mStack;
-
+QStackedWidget *mainStack;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -21,7 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
     mBottom = new nei_bottom;
     mOnepage = new nei_onepage;
     mRes = new nei_result;
+    mLogin = new nei_login;
 
+    mStack->addWidget(mLogin);
     mStack->addWidget(mOnepage);
     mStack->addWidget(mRes);
 

@@ -16,15 +16,18 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     nei_onepage.cpp \
     nei_result.cpp \
-    nei_bottom.cpp
+    nei_bottom.cpp \
+    nei_login.cpp
 
 HEADERS  += mainwindow.h \
     nei_onepage.h \
     nei_result.h \
     nei_bottom.h \
-    nei_common.h
+    nei_common.h \
+    nei_login.h
 
 FORMS    += mainwindow.ui \
     nei_onepage.ui \
     nei_result.ui \
-    nei_bottom.ui
+    nei_bottom.ui \
+    nei_login.ui
