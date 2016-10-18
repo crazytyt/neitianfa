@@ -23,9 +23,10 @@ MainWindow::MainWindow(QWidget *parent) :
     mRes = new nei_result;
     mLogin = new nei_login;
 
+
     mStack->addWidget(mLogin);
     mStack->addWidget(mOnepage);
-    mStack->addWidget(mRes);
+mStack->addWidget(mRes); // ========= for test
 
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);

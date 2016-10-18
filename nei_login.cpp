@@ -13,10 +13,18 @@ nei_login::nei_login(QWidget *parent) :
     ui->mAge->setValidator(validator);
     ui->mJob->setMaxLength(10);
     ui->mName->setMaxLength(10);
-    ui->mPlace->setMaxLength(10);
+    ui->mSex->setMaxLength(10);
 }
 
 nei_login::~nei_login()
 {
     delete ui;
+}
+
+void nei_login::getInfo()
+{
+    mAge = ui->mAge->text();
+    mJob = ui->mJob->text();
+    mName = ui->mName->text();
+    mSex = ui->mSex->text();
 }

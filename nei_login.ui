@@ -19,7 +19,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -64,7 +64,7 @@
        </font>
       </property>
       <property name="text">
-       <string>地域（市）：</string>
+       <string>性别：</string>
       </property>
      </widget>
     </item>
@@ -83,7 +83,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>360</x>
@@ -117,7 +117,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="mPlace">
+     <widget class="QLineEdit" name="mSex">
       <property name="font">
        <font>
         <family>仿宋</family>

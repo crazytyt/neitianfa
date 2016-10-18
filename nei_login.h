@@ -1,4 +1,4 @@
-#ifndef NEI_LOGIN_H
+﻿#ifndef NEI_LOGIN_H
 #define NEI_LOGIN_H
 
 #include <QWidget>
@@ -14,6 +14,8 @@ class nei_login : public QWidget
 public:
     explicit nei_login(QWidget *parent = 0);
     ~nei_login();
+    QString mSex, mName, mAge, mJob;
+    void getInfo(void);
 
 private:
     Ui::nei_login *ui;
