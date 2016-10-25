@@ -72,6 +72,14 @@ nei_bottom::nei_bottom(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QRect pos = ui->start->geometry();
+    pos.moveTo(upscreenWidth/3, pos.y());
+    ui->start->setGeometry(pos);
+
+    pos = ui->reset->geometry();
+    pos.moveTo(upscreenWidth/3*2, pos.y());
+    ui->reset->setGeometry(pos);
+
     display_time(30 * 60);
     mCurTime = 30 * 60;
     timer = new QTimer(this);
@@ -102,7 +110,7 @@ void nei_bottom::init_timer()
 
 }
 
-const int time_int = 1000;
+const int time_int = 1;
 void nei_bottom::on_start_clicked()
 {
     if (mOnepage->mCurrentPage != 15) {

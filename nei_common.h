@@ -15,5 +15,8 @@ extern nei_result *mRes;
 extern nei_login *mLogin;
 extern QStackedWidget *mStack;
 
+extern int upscreenWidth;
+extern int upscreenHeight;
+
 #endif // NEI_COMMON
 

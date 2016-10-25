@@ -1,6 +1,8 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QDesktopWidget>
+
 #include "nei_common.h"
 
 nei_bottom *mBottom;
@@ -9,6 +11,10 @@ nei_result *mRes;
 nei_login *mLogin;
 QStackedWidget *mStack;
 QStackedWidget *mainStack;
+int upscreenWidth;
+int upscreenHeight;
+const int screenWOffset = 100;
+const int screenHOffset = 200;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,6 +22,24 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
+    QDesktopWidget *desktop = QApplication::desktop();
+    QRect screen = desktop->screenGeometry();
+    int screenWidth = screen.width();
+    int screenHeight = screen.height();
+
+    upscreenWidth = screenWidth - screenWOffset;
+    upscreenHeight = (screenHeight - screenHOffset) * 0.8;
+    //setWindowFlags(this->windowFlags() |= Qt::FramelessWindowHint);
+
+    setFixedSize(screenWidth-screenWOffset,screenHeight-screenHOffset); // 禁止改变窗口大小。
+
+    QPixmap pixmap = QPixmap(":/background.jpg").scaled(this->size(),Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    QPalette palette(this->palette());
+    palette.setBrush(QPalette::Background, QBrush(pixmap));
+    this->setPalette(palette);
+
+    this->move(QPoint(30,30));
     mStack = new QStackedWidget(this);
 
     mBottom = new nei_bottom;
@@ -38,11 +62,16 @@ mStack->addWidget(mRes); // ========= for test
     mainLayout->setStretchFactor(mStack, 8);
     mainLayout->setStretchFactor(mBottom, 1);
 
+
+    qDebug() << upscreenWidth << upscreenHeight;
+
     twindow = new QWidget();
     twindow->setLayout(mainLayout);
-    twindow->setGeometry(QRect(0, 0, 2000, 1900));
+    //twindow->setGeometry(QRect(0, 0, 2500, 2300));
     setCentralWidget(twindow);
 
+    //qDebug() << mStack->width() << mStack->height();
+    //this->resize(QSize(1180, 960));
     //window->resize(QSize(800,400));
     QObject::connect(mBottom, SIGNAL(sig_update_page()), mOnepage, SLOT(slot_update_page()));
 

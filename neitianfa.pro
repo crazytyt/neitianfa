@@ -34,3 +34,6 @@ FORMS    += mainwindow.ui \
     nei_result.ui \
     nei_bottom.ui \
     nei_login.ui
+
+RESOURCES += \
+    nei_resource.qrc

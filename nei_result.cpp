@@ -4,6 +4,7 @@
 #include "nei_common.h"
 
 #include <QVector>
+#include <QPalette>
 
 nei_result::nei_result(QWidget *parent) :
     QWidget(parent),
@@ -11,83 +12,39 @@ nei_result::nei_result(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    M1 = 45.07, M2=54.00, R1=11, R2=10,S1=3.93,S2=2.26,N=0.93,T=1.19,V=-4;
-    for(int i = 1; i < 16; i++) {
-        if (i % 2) {
-            X1[i] = 50 + 3;
-            X2[i] = 50 - 3;
-        } else {
-            X1[i] = 50 - 4;
-            X2[i] = 50 + 4;
-        }
-    }
+    // set title's color and position
+    QRect rect = ui->title->geometry();
+    rect.moveTo(upscreenWidth/2 - rect.width()/2, rect.y());
+    ui->title->setGeometry(rect);
 
-    QCustomPlot *mPlot = ui->widget;
+    QPalette pal = ui->title->palette();
+    pal.setColor(QPalette::WindowText, QColor(234, 72, 32));
+    ui->title->setPalette(pal);
 
-    QVector<double> keyS15, valueS15;
-    for(int i=1;i<16;i++)
-    {
-        keyS15 << i;
-        valueS15 << X1[i];
-    }
-    mPlot->addGraph();
-    mPlot->graph(0)->setPen(QPen(Qt::red));
-    mPlot->graph(0)->setData(keyS15,valueS15);
-    mPlot->graph(0)->setPen(QPen(QColor(255, 100, 0)));
-    //mPlot->graph(0)->setBrush(QBrush(QPixmap("./balboa.jpg"))); // fill with texture of specified image
-    mPlot->graph(0)->setLineStyle(QCPGraph::lsLine);
-    mPlot->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 5));
+    // set frame's color and position
+    rect = ui->frame->geometry();
+    rect.setWidth(upscreenWidth/3 * 2);
+    rect.setHeight(upscreenHeight/3);
+    rect.moveTo(upscreenWidth/2-rect.width()/2, rect.y());
+    ui->frame->setGeometry(rect);
 
-    QVector<double> keyE15, valueE15;
-    for(int i=1;i<16;i++)
-    {
-        keyE15 << i;
-        valueE15 << X2[i];
-    }
-    mPlot->addGraph();
-    mPlot->graph(1)->setPen(QPen(Qt::blue));
-    mPlot->graph(1)->setData(keyE15,valueE15);
-    //mPlot->graph(1)->setBrush(QBrush(QPixmap("./balboa.jpg"))); // fill with texture of specified image
-    mPlot->graph(1)->setLineStyle(QCPGraph::lsLine);
-    mPlot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 5));
-    //mPlot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDiamond, Qt::red, Qt::white, 7));
+    // set result's color and position
+    rect = ui->result->geometry();
+    rect.setWidth(upscreenWidth/3 * 2);
+    rect.setHeight(upscreenHeight/3);
+    rect.moveTo(upscreenWidth/2-rect.width()/2, rect.y());
+    ui->result->setGeometry(rect);
 
-    mPlot->xAxis->setLabel(QStringLiteral("测试时间"));
-    mPlot->yAxis->setLabel(QStringLiteral("工作量"));
+    pal = ui->result->palette();
+    pal.setColor(QPalette::WindowText, QColor(234, 72, 32));
+    ui->result->setPalette(pal);
 
-    QSharedPointer<QCPAxisTickerFixed> fixedTicker(new QCPAxisTickerFixed);
-    mPlot->xAxis->setTicker(fixedTicker);
-    fixedTicker->setTickStep(1.0);
-    fixedTicker->setScaleStrategy(QCPAxisTickerFixed::ssNone);
+    // set plot's postion and size
+    rect.setX(40); rect.setY(upscreenHeight/2);
+    rect.setWidth(upscreenWidth-90);
+    rect.setHeight(upscreenHeight/2);
+    ui->widget->setGeometry(rect);
 
-    mPlot->xAxis->setRange(0,15);
-    mPlot->yAxis->setRange(0,100);
-    mPlot->xAxis2->setVisible(false);
-    mPlot->yAxis2->setVisible(false);
-
-    mPlot->legend->setVisible(true);
-    mPlot->graph(0)->setName(QStringLiteral("前十五分钟"));
-    mPlot->graph(1)->setName(QStringLiteral("后十五分钟"));
-
-
-    QString str;
-//    QTextStream(&str) << mLogin->mName << "  " << mLogin->mSex << "  " << mLogin->mJob;
-//    QTextStream(&str) << "  " << mLogin->mAge << "\n";
-//    QTextStream(&str) << "m1 = " << QString::number(M1, 'g', 2) << ", " << "m2 = " << QString::number(M2, 'g', 2) << "\n";
-//    QTextStream(&str) << "r1 = " << R1 << ", " << "r2 = " << R2 << "\n";
-//    QTextStream(&str) << "s1 = " << QString::number(S1, 'g', 2) << ", " << "s2 = " << QString::number(S2, 'g', 2) << "\n";
-//    QTextStream(&str) << "n = " << QString::number(N, 'g', 2) << ", " << "t = " << QString::number(N, 'g', 2) << ", " << " v = " << V;
-//    ui->label->setText(str);
-
-//    QString str1 = "str1 = ", str2 = "str2 = ";
-//    for (int i = 0; i < 15; i++) {
-//        QTextStream(&str1) << X1[i] << " ";
-
-//    }
-//    for (int i = 0; i < 15; i++) {
-
-//        QTextStream(&str2) << X2[i] << " ";
-//    }
 
 }
 
@@ -144,6 +101,7 @@ void nei_result::cal_para()
 		if (X1[i] > X1max)
 			X1max = X1[i];
 	}
+
 	X2min = X2[0];
 	X2max = X2[0];
 	for (i = 1; i < 15; i++) {
@@ -218,4 +176,83 @@ void nei_result::cal_para()
 //    }
 //    qDebug() << str1 << " - " << str2;
 
+    M1 = 45.07, M2=54.00, R1=11, R2=10,S1=3.93,S2=2.26,N=0.93,T=1.19,V=-4;
+    for(int i = 1; i < 16; i++) {
+        if (i % 2) {
+            X1[i] = 50 + 3;
+            X2[i] = 50 - 3;
+        } else {
+            X1[i] = 50 - 4;
+            X2[i] = 50 + 4;
+        }
+    }
+
+    QCustomPlot *mPlot = ui->widget;
+
+    qDebug() << mPlot->geometry().width() << mPlot->geometry().height() \
+             << mPlot->geometry().x() << mPlot->geometry().y();
+
+    QVector<double> keyS15, valueS15;
+    for(int i=1;i<16;i++)
+    {
+        keyS15 << i;
+        valueS15 << X1[i];
+    }
+    mPlot->addGraph();
+    mPlot->graph(0)->setPen(QPen(Qt::red));
+    mPlot->graph(0)->setData(keyS15,valueS15);
+    mPlot->graph(0)->setPen(QPen(QColor(255, 100, 0)));
+    //mPlot->graph(0)->setBrush(QBrush(QPixmap("./balboa.jpg"))); // fill with texture of specified image
+    mPlot->graph(0)->setLineStyle(QCPGraph::lsLine);
+    mPlot->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 5));
+
+    QVector<double> keyE15, valueE15;
+    for(int i=1;i<16;i++)
+    {
+        keyE15 << i;
+        valueE15 << X2[i];
+    }
+    mPlot->addGraph();
+    mPlot->graph(1)->setPen(QPen(Qt::blue));
+    mPlot->graph(1)->setData(keyE15,valueE15);
+    //mPlot->graph(1)->setBrush(QBrush(QPixmap("./balboa.jpg"))); // fill with texture of specified image
+    mPlot->graph(1)->setLineStyle(QCPGraph::lsLine);
+    mPlot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 5));
+    //mPlot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDiamond, Qt::red, Qt::white, 7));
+
+    mPlot->xAxis->setLabel(QStringLiteral("测试时间"));
+    mPlot->yAxis->setLabel(QStringLiteral("工作量"));
+
+    QSharedPointer<QCPAxisTickerFixed> fixedTicker(new QCPAxisTickerFixed);
+    mPlot->xAxis->setTicker(fixedTicker);
+    fixedTicker->setTickStep(1.0);
+    fixedTicker->setScaleStrategy(QCPAxisTickerFixed::ssNone);
+
+    mPlot->xAxis->setRange(0,15);
+    mPlot->yAxis->setRange(0,100);
+    mPlot->xAxis2->setVisible(false);
+    mPlot->yAxis2->setVisible(false);
+
+    mPlot->legend->setVisible(true);
+    mPlot->graph(0)->setName(QStringLiteral("前十五分钟"));
+    mPlot->graph(1)->setName(QStringLiteral("后十五分钟"));
+
+
+//    QTextStream(&str) << mLogin->mName << "  " << mLogin->mSex << "  " << mLogin->mJob;
+//    QTextStream(&str) << "  " << mLogin->mAge << "\n";
+//    QTextStream(&str) << "m1 = " << QString::number(M1, 'g', 2) << ", " << "m2 = " << QString::number(M2, 'g', 2) << "\n";
+//    QTextStream(&str) << "r1 = " << R1 << ", " << "r2 = " << R2 << "\n";
+//    QTextStream(&str) << "s1 = " << QString::number(S1, 'g', 2) << ", " << "s2 = " << QString::number(S2, 'g', 2) << "\n";
+//    QTextStream(&str) << "n = " << QString::number(N, 'g', 2) << ", " << "t = " << QString::number(N, 'g', 2) << ", " << " v = " << V;
+//    ui->label->setText(str);
+
+//    QString str1 = "str1 = ", str2 = "str2 = ";
+//    for (int i = 0; i < 15; i++) {
+//        QTextStream(&str1) << X1[i] << " ";
+
+//    }
+//    for (int i = 0; i < 15; i++) {
+
+//        QTextStream(&str2) << X2[i] << " ";
+//    }
 }

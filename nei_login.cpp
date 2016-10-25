@@ -14,6 +14,8 @@ nei_login::nei_login(QWidget *parent) :
     ui->mJob->setMaxLength(10);
     ui->mName->setMaxLength(10);
     ui->mSex->setMaxLength(10);
+    ui->mName->setFocus();
+
 }
 
 nei_login::~nei_login()

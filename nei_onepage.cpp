@@ -3,6 +3,7 @@
 
 #include "nei_common.h"
 
+
 void nei_onepage::slot_update_page()
 {
 
@@ -50,10 +51,9 @@ nei_onepage::nei_onepage(QWidget *parent) :
 
     generate_data();
 
-    model = new QStandardItemModel(16, 16, this);
+    model = new QStandardItemModel(NUM_ROW * 2, NUM_COL, this);
     ui->tableView->setModel(model);
-    //ui->tableView->resize(QSize(900, 805));
-    ui->tableView->setGeometry(QRect(10, 10, 850, 850));
+    ui->tableView->setGeometry(QRect(10, 10, upscreenWidth-50, upscreenHeight-40));
     ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 
     for (i=0; i < NUM_ROW * 2; i += 2) {
@@ -84,8 +84,14 @@ nei_onepage::nei_onepage(QWidget *parent) :
 
     }
 
-    for (int i = 0; i < NUM_COL; i++)
-        ui->tableView->setColumnWidth(i, 50);
+    // auto fit the width and height
+    for (int c = 0; c < ui->tableView->horizontalHeader()->count(); ++c)
+    {
+        ui->tableView->horizontalHeader()->setSectionResizeMode(
+            c, QHeaderView::Stretch);
+        ui->tableView->verticalHeader()->setSectionResizeMode(
+                    c, QHeaderView::Stretch);
+    }
 
     mCurrentPage = 0;
     mCurrentRow = 1;
@@ -139,8 +145,8 @@ void nei_onepage::clear_result()
     QStandardItem *item;
 
     disconnect(model, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(slot_update_pos(QStandardItem*)));
-    for (i = 1; i < 16; i += 2) {
-        for (j = 1; j < 16; j++) {
+    for (i = 1; i < NUM_ROW * 2; i += 2) {
+        for (j = 1; j < NUM_COL; j++) {
                 item = model->item(i, j);
                 //qDebug() << i << " " << j;
                 item->setText(QString(" "));
@@ -155,8 +161,8 @@ void nei_onepage::clear_all()
     QStandardItem *item;
 
     disconnect(model, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(slot_update_pos(QStandardItem*)));
-    for (i = 0; i < 16; i++) {
-        for (j = 0; j < 16; j++) {
+    for (i = 0; i < NUM_ROW * 2; i++) {
+        for (j = 0; j < NUM_COL; j++) {
                 item = model->item(i, j);
                 item->setText(QString(" "));
         }
@@ -172,8 +178,8 @@ void nei_onepage::save_onepage()
     bool ok;
 
     /* save the calculate result */
-    for (i = 1; i < 16; i += 2) {
-        for (j = 1; j < 16; j++) {
+    for (i = 1; i < NUM_ROW * 2; i += 2) {
+        for (j = 1; j < NUM_COL; j++) {
                 item = model->item(i, j);
                 str = item->text();
                 num = str.toInt(&ok, 10);
