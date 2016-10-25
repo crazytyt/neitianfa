@@ -89,6 +89,11 @@ nei_onepage::nei_onepage(QWidget *parent) :
     {
         ui->tableView->horizontalHeader()->setSectionResizeMode(
             c, QHeaderView::Stretch);
+    }
+
+    for (int c = 0; c < ui->tableView->verticalHeader()->count(); ++c)
+    {
+
         ui->tableView->verticalHeader()->setSectionResizeMode(
                     c, QHeaderView::Stretch);
     }

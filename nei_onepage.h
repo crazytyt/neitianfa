@@ -28,7 +28,7 @@ public slots:
 public:
     explicit nei_onepage(QWidget *parent = 0);
     ~nei_onepage();
-    enum {  NUM_PAGE = 30, NUM_ROW = 8, NUM_COL = 13 };
+    enum {  NUM_PAGE = 30, NUM_ROW = 5, NUM_COL = 21 };
 
     int mRaw[NUM_PAGE][NUM_ROW][NUM_COL];
     int mResult[NUM_PAGE][NUM_ROW][NUM_COL];
