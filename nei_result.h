@@ -1,4 +1,4 @@
-#ifndef NEI_RESULT_H
+﻿#ifndef NEI_RESULT_H
 #define NEI_RESULT_H
 
 #include <QWidget>
@@ -16,11 +16,11 @@ public:
     ~nei_result();
 
 	int X1[15], X2[15];
-	int X1max, X1min, X2max, X2min, R1, R2;
-	double M1, M2, S1, S2;
-    int V, V1, V2;
-	double N, T;
+    double X1max, X1min, X2max, X2min, R1, R2;
+    double M1, M2, S1, S2, V, V1, V2, N, T;
 	double uM1, uM2, uR1, uR2, uS1, uS2, uV, uN, uT;
+    double calP[2][9], calS[2][9], calC[2][9], calSP[2][9];
+    double P, S, C, SP;
     void cal_para(void);
 private:
     Ui::nei_result *ui;
