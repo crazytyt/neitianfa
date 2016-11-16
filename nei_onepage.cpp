@@ -191,7 +191,7 @@ void nei_onepage::save_onepage()
                 if (ok == true)
                     mResult[mCurrentPage][(i - 1) / 2][j - 1] = num;
                 else
-                    mResult[mCurrentPage][(i - 1) / 2][j - 1] = 100;
+                    mResult[mCurrentPage][(i - 1) / 2][j - 1] = mPOISON;
                 //qDebug() << i << " " << j << " " << num;
         }
 

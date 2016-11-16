@@ -75,13 +75,18 @@ void nei_result::cal_para()
     int i, j, p;
     double x1sum, x2sum;
 
+    // calculate the first 15 minites result
+    mErr = 0;
     for (i = 0; i < mOnepage->NUM_PAGE / 2; i++) {
         X1[i] = 0;
         for (j = 0; j < mOnepage->NUM_ROW; j++) {
             for (p = 0; p < mOnepage->NUM_COL - 1; p++) {
                 if (mOnepage->mResult[i][j][p] == mOnepage->mCorrect[i][j][p]) {
 					X1[i]++;
-				}
+                } else if (mOnepage->mResult[i][j][p] != mOnepage->mPOISON) {
+                    mErr++;
+                }
+
 			}
         }
     }
@@ -93,7 +98,9 @@ void nei_result::cal_para()
             for (p = 0; p < mOnepage->NUM_COL - 1; p++) {
                 if (mOnepage->mResult[i][j][p] == mOnepage->mCorrect[i][j][p]) {
                     X2[index]++;
-				}
+                } else if (mOnepage->mResult[i][j][p] != mOnepage->mPOISON) {
+                    mErr++;
+                }
 				//qDebug() << "-- " << i << " " << j << " " << p << " " << mOnepage->mResult[i][j][p] << " " << mOnepage->mCorrect[i][j][p] << "\n";
 			}
         }
@@ -102,22 +109,25 @@ void nei_result::cal_para()
     }
 
     // for test data1
-//	X1[0]=63; X1[1]=56; X1[2]=57; X1[3]=58; X1[4]=50; X1[5]=48; X1[6]=49; X1[7]=55;
-//	X1[8]=50; X1[9]=61; X1[10]=62; X1[11]=58; X1[12]=59; X1[13]=53; X1[14]=62;
-//	X2[0]=79; X2[1]=73; X2[2]=80; X2[3]=65; X2[4]=71; X2[5]=77; X2[6]=76; X2[7]=84;
-//	X2[8]=67; X2[9]=68; X2[10]=67; X2[11]=56; X2[12]=68; X2[13]=68; X2[14]=69;
+//    X1[0]=63; X1[1]=56; X1[2]=57; X1[3]=58; X1[4]=50; X1[5]=48; X1[6]=49; X1[7]=55;
+//    X1[8]=50; X1[9]=61; X1[10]=62; X1[11]=58; X1[12]=59; X1[13]=53; X1[14]=62;
+//    X2[0]=79; X2[1]=73; X2[2]=80; X2[3]=65; X2[4]=71; X2[5]=77; X2[6]=76; X2[7]=84;
+//    X2[8]=67; X2[9]=68; X2[10]=67; X2[11]=56; X2[12]=68; X2[13]=68; X2[14]=69;
 
     // test data2
-    X1[0]=60; X1[1]=55; X1[2]=56; X1[3]=58; X1[4]=58; X1[5]=56; X1[6]=57; X1[7]=62;
-    X1[8]=61; X1[9]=58; X1[10]=66; X1[11]=61; X1[12]=61; X1[13]=62; X1[14]=63;
-    X2[0]=74; X2[1]=70; X2[2]=74; X2[3]=76; X2[4]=67; X2[5]=73; X2[6]=74; X2[7]=75;
-    X2[8]=72; X2[9]=72; X2[10]=68; X2[11]=74; X2[12]=66; X2[13]=67; X2[14]=66;
+//    X1[0]=60; X1[1]=55; X1[2]=56; X1[3]=58; X1[4]=58; X1[5]=56; X1[6]=57; X1[7]=62;
+//    X1[8]=61; X1[9]=58; X1[10]=66; X1[11]=61; X1[12]=61; X1[13]=62; X1[14]=63;
+//    X2[0]=74; X2[1]=70; X2[2]=74; X2[3]=76; X2[4]=67; X2[5]=73; X2[6]=74; X2[7]=75;
+//    X2[8]=72; X2[9]=72; X2[10]=68; X2[11]=74; X2[12]=66; X2[13]=67; X2[14]=66;
 
 	x1sum = x2sum = 0;
 	for (i = 0; i < 15; i++) {
-		 x1sum += X1[i] ;
-		 x2sum += X2[i] ;
+        mCorr += X1[i] + X2[i];
+        x1sum += X1[i] ;
+        x2sum += X2[i] ;
 	}
+    mErrRate = (mErr * 1000 / (mCorr + mErr));
+    mErrRate = static_cast<double>(static_cast<int>(mErrRate+5.0))/10.0;
 
 	M1 = x1sum / 15;
 	M2 = x2sum / 15;
@@ -179,10 +189,10 @@ void nei_result::cal_para()
     uR2 = 1-(qAbs(R2-13.18)/31.82);
     uS1 = 1-(qAbs(S1-3.82)/8.18);
     uS2 = 1-(qAbs(S2-4.08)/5.92);
-//    if (V < 0.0)
+    if (V < 0.0)
         uV = 1-(qAbs(V+8)/20);
-//    else
-//        uV = 1-(qAbs(V-8)/20);
+    else
+        uV = 1-(qAbs(V-8)/20);
 
     uN = 1-(qAbs(N-1.10)/0.4);
     uT = 1-(qAbs(T-1.23)/0.77);
@@ -421,8 +431,27 @@ void nei_result::cal_para()
 
     qDebug() << " --- " << P << S << C << SP;
 
+    double ttype = P;
+    j = 0;
+    if (S > ttype) {
+        j = 1;
+        ttype = S;
+    }
+    if (C > ttype) {
+        j = 2;
+        ttype = C;
+    }
+    if (SP > ttype) {
+        j = 3;
+        ttype = SP;
+    }
+    QString type[] = {QStringLiteral("黏液质"), QStringLiteral("多血质"),
+                      QStringLiteral("胆汁质"), QStringLiteral("多-黏质")};
+    mType = type[j];
+
     mLogin->getInfo();
     QString str;
+    QTextStream(&str) << mType << " ";
     QTextStream(&str) << mLogin->mName << "  " << mLogin->mSex << "  " << mLogin->mJob;
     QTextStream(&str) << "  " << mLogin->mAge << "\n";
 

@@ -37,7 +37,7 @@ public:
     int mCurrentPage;
     int mCurrentRow;
     int mCurrentCol;
-
+    const int mPOISON = 0x5a5a;
     QStandardItemModel *model;
     void display_onepage(int index);
     void clear_result(void);
