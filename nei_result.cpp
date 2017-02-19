@@ -42,7 +42,7 @@ nei_result::nei_result(QWidget *parent) :
     // set plot's postion and size
     rect.setX(40); rect.setY(upscreenHeight/2);
     rect.setWidth(upscreenWidth-90);
-    rect.setHeight(upscreenHeight/2);
+    rect.setHeight(upscreenHeight * 0.4);
     ui->widget->setGeometry(rect);
 
 
@@ -53,6 +53,7 @@ nei_result::~nei_result()
     delete ui;
 }
 
+// test data, will remove
 const double PP[2][9] = {
     {0.84, 0.81, 0.83, 0.93, 0.92, 0.85, 1.00, 0.95, 0.98},
     {0.76, 0.73, 0.92, 0.94, 0.91, 0.84, 0.60, 0.94, 0.97}
@@ -401,11 +402,11 @@ void nei_result::cal_para()
             calSP[i][j] = static_cast<double>(static_cast<int>(calSP[i][j]*1000+0.5))/1000.0;
 		}
 	}
-    for (i=0; i<2; i++) {
-        for (j=0; j<9; j++) {
-            qDebug() << calP[i][j] << calS[i][j] <<calC[i][j] <<calSP[i][j] ;
-        }
-    }
+//    for (i=0; i<2; i++) {
+//        for (j=0; j<9; j++) {
+//            qDebug() << calP[i][j] << calS[i][j] <<calC[i][j] <<calSP[i][j] ;
+//        }
+//    }
 
     // calculate P, S, C, SP
     double pmax = calP[1][0], pmin = calP[0][0];

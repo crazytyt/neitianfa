@@ -48,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mStack->addWidget(mLogin);
     mStack->addWidget(mOnepage);
-mStack->addWidget(mRes); // ========= for test
+    mStack->addWidget(mRes);
 
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
@@ -61,7 +61,7 @@ mStack->addWidget(mRes); // ========= for test
     mainLayout->setStretchFactor(mBottom, 2);
 
 
-    qDebug() << upscreenWidth << upscreenHeight << screenWidth << screenHeight;
+    //qDebug() << upscreenWidth << upscreenHeight << screenWidth << screenHeight;
 
     twindow = new QWidget();
     twindow->setLayout(mainLayout);
