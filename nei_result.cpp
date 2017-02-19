@@ -451,6 +451,7 @@ void nei_result::cal_para()
     mType = type[j];
 
     mLogin->getInfo();
+
     QString str;
     QTextStream(&str) << mType << " ";
     QTextStream(&str) << mLogin->mName << "  " << mLogin->mSex << "  " << mLogin->mJob;
@@ -462,6 +463,7 @@ void nei_result::cal_para()
     QTextStream(&str) << "n = " << QString::number(N, 'g', 6) << ", " << "t = " << QString::number(N, 'g', 6) << ", " << " v = " << V;
     ui->result->setText(str);
 
+    /* plot the result */
     QCustomPlot *mPlot = ui->widget;
 
     QVector<double> keyS15, valueS15;
