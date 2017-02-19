@@ -13,8 +13,6 @@ QStackedWidget *mStack;
 QStackedWidget *mainStack;
 int upscreenWidth;
 int upscreenHeight;
-const int screenWOffset = 100;
-const int screenHOffset = 200;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -28,18 +26,18 @@ MainWindow::MainWindow(QWidget *parent) :
     int screenWidth = screen.width();
     int screenHeight = screen.height();
 
-    upscreenWidth = screenWidth - screenWOffset;
-    upscreenHeight = (screenHeight - screenHOffset) * 0.8;
+    upscreenWidth = screenWidth * 0.9;
+    upscreenHeight = screenHeight * 0.7; // table is 70% high of screen
     //setWindowFlags(this->windowFlags() |= Qt::FramelessWindowHint);
 
-    setFixedSize(screenWidth-screenWOffset,screenHeight-screenHOffset); // 禁止改变窗口大小。
+    setFixedSize(screenWidth * 0.9,screenHeight * 0.9); // 禁止改变窗口大小。
 
     QPixmap pixmap = QPixmap(":/background.jpg").scaled(this->size(),Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     QPalette palette(this->palette());
     palette.setBrush(QPalette::Background, QBrush(pixmap));
     this->setPalette(palette);
 
-    this->move(QPoint(30,30));
+   // this->move(QPoint(30,30));
     mStack = new QStackedWidget(this);
 
     mBottom = new nei_bottom;
@@ -60,10 +58,10 @@ mStack->addWidget(mRes); // ========= for test
     mainLayout->addWidget(mStack);
     mainLayout->addWidget(mBottom);
     mainLayout->setStretchFactor(mStack, 8);
-    mainLayout->setStretchFactor(mBottom, 1);
+    mainLayout->setStretchFactor(mBottom, 2);
 
 
-    qDebug() << upscreenWidth << upscreenHeight;
+    qDebug() << upscreenWidth << upscreenHeight << screenWidth << screenHeight;
 
     twindow = new QWidget();
     twindow->setLayout(mainLayout);
