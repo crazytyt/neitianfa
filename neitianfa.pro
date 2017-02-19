@@ -6,12 +6,14 @@
 
 QT       += core gui
 QT       += printsupport    # for qcustomplot use
+#QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = neitianfa
 TEMPLATE = app
 
+include(3rdparty/qtxlsx/src/xlsx/qtxlsx.pri)
 
 SOURCES += main.cpp\
         mainwindow.cpp \
