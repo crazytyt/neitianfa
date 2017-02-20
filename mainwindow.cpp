@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     upscreenHeight = screenHeight * 0.7; // table is 70% high of screen
     //setWindowFlags(this->windowFlags() |= Qt::FramelessWindowHint);
 
-    setFixedSize(screenWidth * 0.9,screenHeight * 0.9); // 禁止改变窗口大小。
+    setFixedSize(screenWidth-20,screenHeight * 0.9); // 禁止改变窗口大小。
 
     QPixmap pixmap = QPixmap(":/background.jpg").scaled(this->size(),Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     QPalette palette(this->palette());

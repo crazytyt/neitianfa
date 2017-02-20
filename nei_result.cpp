@@ -14,7 +14,8 @@ nei_result::nei_result(QWidget *parent) :
 
     // set title's color and position
     QRect rect = ui->title->geometry();
-    rect.moveTo(upscreenWidth/2 - rect.width()/2, rect.y());
+    //rect.moveTo(upscreenWidth/2 - rect.width()/2, rect.y());
+    rect.moveTo(upscreenWidth/2 - rect.width()/2, 20);
     ui->title->setGeometry(rect);
 
     QPalette pal = ui->title->palette();
@@ -22,9 +23,11 @@ nei_result::nei_result(QWidget *parent) :
     ui->title->setPalette(pal);
 
     // set frame's color and position
+    QRect rect1 = ui->title->geometry();
     rect = ui->frame->geometry();
-    rect.setWidth(upscreenWidth/3 * 2);
-    rect.setHeight(upscreenHeight/3);
+    rect.setWidth(upscreenWidth - 20);
+    qDebug() << " == " << upscreenWidth << upscreenHeight << rect1.height() << rect.y() << upscreenHeight/2;
+    rect.setHeight(upscreenHeight / 2 - rect1.height());
     rect.moveTo(upscreenWidth/2-rect.width()/2, rect.y());
     ui->frame->setGeometry(rect);
 
@@ -456,15 +459,40 @@ void nei_result::cal_para()
     //QTextStream(&str) << mType << " ";
     QTextStream(&str) << QStringLiteral("姓名: ") << mLogin->mName << "  ";
     QTextStream(&str )<< QStringLiteral("年龄: ") << mLogin->mAge << "  ";
-    QTextStream(&str )<< QStringLiteral("性别: ") << mLogin->mSex << "\n";
+    QTextStream(&str )<< QStringLiteral("性别: ") << mLogin->mSex << " ";
     QTextStream(&str )<< QStringLiteral("职业: ") << mLogin->mJob << "  ";
     QTextStream(&str )<< QStringLiteral("地域: ") << mLogin->mLoc << "  ";
     QTextStream(&str )<< QStringLiteral("学历: ") << mLogin->mDegree << "\n";
 
-    QTextStream(&str) << "m1 = " << M1 << ", " << "m2 = " << QString::number(M2, 'g', 6) << "\n";
-    QTextStream(&str) << "r1 = " << R1 << ", " << "r2 = " << R2 << "\n";
-    QTextStream(&str) << "s1 = " << QString::number(S1, 'g', 6) << ", " << "s2 = " << QString::number(S2, 'g', 6) << "\n";
-    QTextStream(&str) << "n = " << QString::number(N, 'g', 6) << ", " << "t = " << QString::number(N, 'g', 6) << ", " << " v = " << V;
+    QTextStream(&str) << "M1=" << QString::number(M1, 'g', 6) << "  ";
+    QTextStream(&str) << "M2=" << QString::number(M2, 'g', 6) << "  ";
+    QTextStream(&str) << "R1=" << QString::number(R1, 'g', 6) << "  ";
+    QTextStream(&str) << "R2=" << QString::number(R2, 'g', 6) << "  ";
+    QTextStream(&str) << "S1=" << QString::number(S1, 'g', 6) << "  ";
+    QTextStream(&str) << "S2=" << QString::number(S2, 'g', 6) << "\n";
+    QTextStream(&str) << "V=" << QString::number(V, 'g', 6) << "  ";
+    QTextStream(&str) << "N=" << QString::number(N, 'g', 6) << "  ";
+    QTextStream(&str) << "T=" << QString::number(T, 'g', 6) << "\n";
+
+    QTextStream(&str) << "uM1=" << QString::number(uM1, 'g', 6) << "  ";
+    QTextStream(&str) << "uM2=" << QString::number(uM2, 'g', 6) << "  ";
+    QTextStream(&str) << "uR1=" << QString::number(uR1, 'g', 6) << "  ";
+    QTextStream(&str) << "uR2=" << QString::number(uR2, 'g', 6) << "  ";
+    QTextStream(&str) << "uS1=" << QString::number(uS1, 'g', 6) << "  ";
+    QTextStream(&str) << "uS2=" << QString::number(uS2, 'g', 6) << "\n";
+    QTextStream(&str) << "uV=" << QString::number(uV, 'g', 6) << "  ";
+    QTextStream(&str) << "uN=" << QString::number(uN, 'g', 6) << "  ";
+    QTextStream(&str) << "uT=" << QString::number(uT, 'g', 6) << "\n";
+
+    QTextStream(&str) << "P=" << QString::number(P, 'g', 6) << "  ";
+    QTextStream(&str) << "S=" << QString::number(S, 'g', 6) << "  ";
+    QTextStream(&str) << "C=" << QString::number(C, 'g', 6) << "  ";
+    QTextStream(&str) << "SP=" << QString::number(SP, 'g', 6) << "\n";
+    QTextStream(&str) << QStringLiteral("类型: ") << QString::number(uS1, 'g', 6) << "  ";
+    QTextStream(&str) << QStringLiteral("合计: ") << QString::number(uS2, 'g', 6) << "\n";
+    QTextStream(&str) << QStringLiteral("错误: ") << QString::number(uV, 'g', 6) << "  ";
+    QTextStream(&str) << QStringLiteral("错误率: ") << QString::number(uN, 'g', 6) << "  ";
+
     ui->result->setText(str);
 
     /* plot the result */
