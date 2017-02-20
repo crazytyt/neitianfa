@@ -18,7 +18,7 @@ nei_result::nei_result(QWidget *parent) :
     ui->title->setGeometry(rect);
 
     QPalette pal = ui->title->palette();
-    pal.setColor(QPalette::WindowText, QColor(234, 72, 32));
+    pal.setColor(QPalette::WindowText, QColor(255, 255, 0));
     ui->title->setPalette(pal);
 
     // set frame's color and position
@@ -32,11 +32,11 @@ nei_result::nei_result(QWidget *parent) :
     rect = ui->result->geometry();
     rect.setWidth(upscreenWidth/3 * 2);
     rect.setHeight(upscreenHeight/3);
-    rect.moveTo(upscreenWidth/2-rect.width()/2, rect.y());
+    rect.moveTo(5, 5);  //related to frame widget
     ui->result->setGeometry(rect);
 
     pal = ui->result->palette();
-    pal.setColor(QPalette::WindowText, QColor(234, 72, 32));
+    pal.setColor(QPalette::WindowText, QColor(255, 255, 0));
     ui->result->setPalette(pal);
 
     // set plot's postion and size
@@ -110,16 +110,16 @@ void nei_result::cal_para()
     }
 
     // for test data1
-//    X1[0]=63; X1[1]=56; X1[2]=57; X1[3]=58; X1[4]=50; X1[5]=48; X1[6]=49; X1[7]=55;
-//    X1[8]=50; X1[9]=61; X1[10]=62; X1[11]=58; X1[12]=59; X1[13]=53; X1[14]=62;
-//    X2[0]=79; X2[1]=73; X2[2]=80; X2[3]=65; X2[4]=71; X2[5]=77; X2[6]=76; X2[7]=84;
-//    X2[8]=67; X2[9]=68; X2[10]=67; X2[11]=56; X2[12]=68; X2[13]=68; X2[14]=69;
+    X1[0]=63; X1[1]=56; X1[2]=57; X1[3]=58; X1[4]=50; X1[5]=48; X1[6]=49; X1[7]=55;
+    X1[8]=50; X1[9]=61; X1[10]=62; X1[11]=58; X1[12]=59; X1[13]=53; X1[14]=62;
+    X2[0]=79; X2[1]=73; X2[2]=80; X2[3]=65; X2[4]=71; X2[5]=77; X2[6]=76; X2[7]=84;
+    X2[8]=67; X2[9]=68; X2[10]=67; X2[11]=56; X2[12]=68; X2[13]=68; X2[14]=69;
 
     // test data2
-//    X1[0]=60; X1[1]=55; X1[2]=56; X1[3]=58; X1[4]=58; X1[5]=56; X1[6]=57; X1[7]=62;
-//    X1[8]=61; X1[9]=58; X1[10]=66; X1[11]=61; X1[12]=61; X1[13]=62; X1[14]=63;
-//    X2[0]=74; X2[1]=70; X2[2]=74; X2[3]=76; X2[4]=67; X2[5]=73; X2[6]=74; X2[7]=75;
-//    X2[8]=72; X2[9]=72; X2[10]=68; X2[11]=74; X2[12]=66; X2[13]=67; X2[14]=66;
+    X1[0]=60; X1[1]=55; X1[2]=56; X1[3]=58; X1[4]=58; X1[5]=56; X1[6]=57; X1[7]=62;
+    X1[8]=61; X1[9]=58; X1[10]=66; X1[11]=61; X1[12]=61; X1[13]=62; X1[14]=63;
+    X2[0]=74; X2[1]=70; X2[2]=74; X2[3]=76; X2[4]=67; X2[5]=73; X2[6]=74; X2[7]=75;
+    X2[8]=72; X2[9]=72; X2[10]=68; X2[11]=74; X2[12]=66; X2[13]=67; X2[14]=66;
 
 	x1sum = x2sum = 0;
 	for (i = 0; i < 15; i++) {
@@ -453,9 +453,13 @@ void nei_result::cal_para()
     mLogin->getInfo();
 
     QString str;
-    QTextStream(&str) << mType << " ";
-    QTextStream(&str) << mLogin->mName << "  " << mLogin->mSex << "  " << mLogin->mJob;
-    QTextStream(&str) << "  " << mLogin->mAge << "\n";
+    //QTextStream(&str) << mType << " ";
+    QTextStream(&str) << QStringLiteral("姓名: ") << mLogin->mName << "  ";
+    QTextStream(&str )<< QStringLiteral("年龄: ") << mLogin->mAge << "  ";
+    QTextStream(&str )<< QStringLiteral("性别: ") << mLogin->mSex << "\n";
+    QTextStream(&str )<< QStringLiteral("职业: ") << mLogin->mJob << "  ";
+    QTextStream(&str )<< QStringLiteral("地域: ") << mLogin->mLoc << "  ";
+    QTextStream(&str )<< QStringLiteral("学历: ") << mLogin->mDegree << "\n";
 
     QTextStream(&str) << "m1 = " << M1 << ", " << "m2 = " << QString::number(M2, 'g', 6) << "\n";
     QTextStream(&str) << "r1 = " << R1 << ", " << "r2 = " << R2 << "\n";
@@ -510,23 +514,5 @@ void nei_result::cal_para()
     mPlot->legend->setVisible(true);
     mPlot->graph(0)->setName(QStringLiteral("前十五分钟"));
     mPlot->graph(1)->setName(QStringLiteral("后十五分钟"));
-
-
-//    QTextStream(&str) << mLogin->mName << "  " << mLogin->mSex << "  " << mLogin->mJob;
-//    QTextStream(&str) << "  " << mLogin->mAge << "\n";
-//    QTextStream(&str) << "m1 = " << QString::number(M1, 'g', 2) << ", " << "m2 = " << QString::number(M2, 'g', 2) << "\n";
-//    QTextStream(&str) << "r1 = " << R1 << ", " << "r2 = " << R2 << "\n";
-//    QTextStream(&str) << "s1 = " << QString::number(S1, 'g', 2) << ", " << "s2 = " << QString::number(S2, 'g', 2) << "\n";
-//    QTextStream(&str) << "n = " << QString::number(N, 'g', 2) << ", " << "t = " << QString::number(N, 'g', 2) << ", " << " v = " << V;
-//    ui->label->setText(str);
-
-//    QString str1 = "str1 = ", str2 = "str2 = ";
-//    for (int i = 0; i < 15; i++) {
-//        QTextStream(&str1) << X1[i] << " ";
-
-//    }
-//    for (int i = 0; i < 15; i++) {
-
-//        QTextStream(&str2) << X2[i] << " ";
-//    }
+    mPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
 }

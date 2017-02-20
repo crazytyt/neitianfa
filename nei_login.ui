@@ -51,12 +51,12 @@
     </font>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>350</x>
      <y>140</y>
-     <width>61</width>
+     <width>62</width>
      <height>321</height>
     </rect>
    </property>
@@ -181,7 +181,7 @@
     <rect>
      <x>411</x>
      <y>266</y>
-     <width>61</width>
+     <width>49</width>
      <height>25</height>
     </rect>
    </property>
@@ -190,6 +190,9 @@
      <family>仿宋</family>
      <pointsize>14</pointsize>
     </font>
+   </property>
+   <property name="maxLength">
+    <number>4</number>
    </property>
   </widget>
   <widget class="QLineEdit" name="mPlace">

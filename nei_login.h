@@ -14,7 +14,7 @@ class nei_login : public QWidget
 public:
     explicit nei_login(QWidget *parent = 0);
     ~nei_login();
-    QString mSex, mName, mAge, mJob;
+    QString mSex, mName, mAge, mJob, mLoc, mDegree;
     void getInfo(void);
 
 private:
