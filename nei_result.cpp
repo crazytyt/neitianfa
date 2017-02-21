@@ -6,6 +6,9 @@
 #include <QVector>
 #include <QPalette>
 
+#include "xlsxdocument.h"
+#include "xlsxformat.h"
+
 nei_result::nei_result(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::nei_result)
@@ -85,9 +88,12 @@ void nei_result::cal_para()
         X1[i] = 0;
         for (j = 0; j < mOnepage->NUM_ROW; j++) {
             for (p = 0; p < mOnepage->NUM_COL - 1; p++) {
+                //qDebug() << __LINE__ << mOnepage->mResult[i][j][p] << mOnepage->mCorrect[i][j][p];
                 if (mOnepage->mResult[i][j][p] == mOnepage->mCorrect[i][j][p]) {
 					X1[i]++;
+                    //qDebug() << __LINE__ << mOnepage->mResult[i][j][p] << mOnepage->mCorrect[i][j][p];
                 } else if (mOnepage->mResult[i][j][p] != mOnepage->mPOISON) {
+                    //qDebug() << __LINE__ << mOnepage->mResult[i][j][p] << mOnepage->mCorrect[i][j][p];
                     mErr++;
                 }
 
@@ -100,10 +106,13 @@ void nei_result::cal_para()
         X2[index] = 0;
         for (j = 0; j < mOnepage->NUM_ROW; j++) {
             for (p = 0; p < mOnepage->NUM_COL - 1; p++) {
+                //qDebug() << __LINE__ << mOnepage->mResult[i][j][p] << mOnepage->mCorrect[i][j][p];
                 if (mOnepage->mResult[i][j][p] == mOnepage->mCorrect[i][j][p]) {
                     X2[index]++;
+                    //qDebug() << __LINE__ << mOnepage->mResult[i][j][p] << mOnepage->mCorrect[i][j][p];
                 } else if (mOnepage->mResult[i][j][p] != mOnepage->mPOISON) {
                     mErr++;
+                    //qDebug() << __LINE__ << mOnepage->mResult[i][j][p] << mOnepage->mCorrect[i][j][p];
                 }
 				//qDebug() << "-- " << i << " " << j << " " << p << " " << mOnepage->mResult[i][j][p] << " " << mOnepage->mCorrect[i][j][p] << "\n";
 			}
@@ -126,11 +135,15 @@ void nei_result::cal_para()
 
 	x1sum = x2sum = 0;
 	for (i = 0; i < 15; i++) {
-        mCorr += X1[i] + X2[i];
         x1sum += X1[i] ;
         x2sum += X2[i] ;
 	}
-    mErrRate = (mErr * 1000 / (mCorr + mErr));
+
+    mCorr = x1sum + x2sum;
+    if (mCorr + mErr == 0)
+        mErrRate = 0;
+    else
+        mErrRate = (mErr * 1000 / (mCorr + mErr));
     mErrRate = static_cast<double>(static_cast<int>(mErrRate+5.0))/10.0;
 
 	M1 = x1sum / 15;
@@ -222,8 +235,16 @@ void nei_result::cal_para()
     uN = static_cast<double>(static_cast<int>(uN*1000+0.5))/1000.0;
     uT = static_cast<double>(static_cast<int>(uT*1000+0.5))/1000.0;
 
-    qDebug() << M1 << M2 << R1 << R2 << S1 << S2 << V << N << T;
-    qDebug() << uM1 << uM2 << uR1 << uR2 << uS1 << uS2 << uV << uN << uT;
+    qDebug() << "X1: ";
+    for (i = 0; i< 15; i++)
+        qDebug() << X1[i];
+    for (i = 0; i< 15; i++)
+        qDebug() << X2[i];
+
+    qDebug() << "correct, error = " << mCorr << mErr;
+    qDebug() << " -- m1,m2 ...--"  << M1 << M2 << R1 << R2 << S1 << S2 << V << N << T;
+    qDebug() << " -- um1, um2 -- " << uM1 << uM2 << uR1 << uR2 << uS1 << uS2 << uV << uN << uT;
+
     if (V >= 0) {
 		// calculate P
         calP[0][0] = qMax(uM1, PP[0][0]);
@@ -433,7 +454,7 @@ void nei_result::cal_para()
     C = 0.5*(cmax + (1 - cmin));
     SP = 0.5*(spmax + (1 - spmin));
 
-    qDebug() << " --- " << P << S << C << SP;
+    qDebug() << " --- p,s,c,sp -- " << P << S << C << SP;
 
     double ttype = P;
     j = 0;
@@ -491,7 +512,7 @@ void nei_result::cal_para()
     QTextStream(&str) << QStringLiteral("性格类型: ") << mType << "  ";
     QTextStream(&str) << QStringLiteral("答题合计: ") << mErr + mCorr << "  ";
     QTextStream(&str) << QStringLiteral("错误合计: ") << mErr << "  ";
-    QTextStream(&str) << QStringLiteral("错误率: ") << QString::number(mErrRate, 'g', 4);
+    QTextStream(&str) << QStringLiteral("错误率: ") << QString::number(mErrRate, 'g', 4) << "%";
 
     ui->result->setText(str);
 
@@ -543,4 +564,87 @@ void nei_result::cal_para()
     mPlot->graph(0)->setName(QStringLiteral("前十五分钟"));
     mPlot->graph(1)->setName(QStringLiteral("后十五分钟"));
     mPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
+
+    // write the result to name.xlsx file
+    QString name;
+    if (mLogin->mName == NULL)
+        name = "result.xlsx";
+    else
+        name = mLogin->mName + ".xlsx";
+
+    QXlsx::Document xlsx;
+    QXlsx::Format format1;/*设置该单元的样式*/
+    format1.setFontColor(QColor(Qt::red));/*文字为红色*/
+    format1.setPatternBackgroundColor(QColor(152,251,152));/*北京颜色*/
+    format1.setFontSize(15);/*设置字体大小*/
+    format1.setHorizontalAlignment(QXlsx::Format::AlignHCenter);/*横向居中*/
+    format1.setBorderStyle(QXlsx::Format::BorderThin);/*边框样式*/
+    //xlsx.write(2, 1, 12345, format1);
+
+    QXlsx::Format format2;/*设置该单元的样式*/
+    format2.setFontColor(QColor(Qt::blue));
+    format2.setPatternBackgroundColor(QColor(152,251,0));/*北京颜色*/
+    format2.setFontSize(13);/*设置字体大小*/
+    format2.setHorizontalAlignment(QXlsx::Format::AlignHCenter);/*横向居中*/
+    format2.setBorderStyle(QXlsx::Format::BorderThin);/*边框样式*/
+
+    xlsx.write("A1", "M1", format1);
+    xlsx.write("B1", "M2", format1);
+    xlsx.write("C1", "R1", format1);
+    xlsx.write("D1", "R2", format1);
+    xlsx.write("E1", "S1", format1);
+    xlsx.write("F1", "S2", format1);
+    xlsx.write("G1", "V", format1);
+    xlsx.write("H1", "N", format1);
+    xlsx.write("I1", "T", format1);
+
+    xlsx.write("A2", M1, format2);
+    xlsx.write("B2", M2, format2);
+    xlsx.write("C2", R1, format2);
+    xlsx.write("D2", R2, format2);
+    xlsx.write("E2", S1, format2);
+    xlsx.write("F2", S2, format2);
+    xlsx.write("G2", V, format2);
+    xlsx.write("H2", N, format2);
+    xlsx.write("I2", T, format2);
+
+    xlsx.write("A3", "uM1", format1);
+    xlsx.write("B3", "uM2", format1);
+    xlsx.write("C3", "uR1", format1);
+    xlsx.write("D3", "uR2", format1);
+    xlsx.write("E3", "uS1", format1);
+    xlsx.write("F3", "uS2", format1);
+    xlsx.write("G3", "uV", format1);
+    xlsx.write("H3", "uN", format1);
+    xlsx.write("I3", "uT", format1);
+
+    xlsx.write("A4", uM1, format2);
+    xlsx.write("B4", uM2, format2);
+    xlsx.write("C4", uR1, format2);
+    xlsx.write("D4", uR2, format2);
+    xlsx.write("E4", uS1, format2);
+    xlsx.write("F4", uS2, format2);
+    xlsx.write("G4", uV, format2);
+    xlsx.write("H4", uN, format2);
+    xlsx.write("I4", uT, format2);
+
+    xlsx.write("A5", "P", format1);
+    xlsx.write("B5", "S", format1);
+    xlsx.write("C5", "C", format1);
+    xlsx.write("D5", "SP", format1);
+    xlsx.write("E5", QStringLiteral("性格类型"), format1);
+    xlsx.write("F5", QStringLiteral("答题合计"), format1);
+    xlsx.write("G5", QStringLiteral("错误合计"), format1);
+    xlsx.write("H5", QStringLiteral("错误率"), format1);
+
+    xlsx.write("A6", P, format2);
+    xlsx.write("B6", S, format2);
+    xlsx.write("C6", C, format2);
+    xlsx.write("D6", SP, format2);
+    xlsx.write("E6", mType, format2);
+    xlsx.write("F6", mCorr+mErr, format2);
+    xlsx.write("G6", mErr, format2);
+    xlsx.write("H6", mErrRate, format2);
+
+    xlsx.saveAs(name);
 }

@@ -44,7 +44,7 @@ void nei_bottom::timeout_action()
 
 void nei_bottom::slot_15min_handle()
 {
-    ui->start->setText(QStringLiteral("继续"));
+    ui->start->setText(QStringLiteral("继续"));  // continue
     ui->start->setEnabled(true);
     timer->stop();
     mOnepage->save_onepage();
@@ -58,7 +58,7 @@ void nei_bottom::slot_30min_handle()
     mOnepage->save_onepage();
     mOnepage->clear_all();
 
-    ui->start->setText(QStringLiteral("开始"));
+    ui->start->setText(QStringLiteral("开始"));   //start
 
     ui->start->setEnabled(true);
 
@@ -109,12 +109,12 @@ void nei_bottom::init_timer()
     mCurTime = 30 * 60;
 
 }
-
+// code for this file is gb2312.
 const int time_int = 1000;
 void nei_bottom::on_start_clicked()
 {
     if (mOnepage->mCurrentPage != 15) {
-        //ui->start->setText(QString::fromUtf8("北京"));
+
         mOnepage->mCurrentPage = 0;
         mOnepage->mCurrentRow = 1;
         mOnepage->mCurrentCol = 1;
@@ -137,9 +137,7 @@ void nei_bottom::on_start_clicked()
         mOnepage->mCurrentRow = 1;
         mOnepage->mCurrentCol = 1;
         mOnepage->tSetPosition(1, 1);
-        //qDebug() << "sec --";
-        //ui->start->setText(QString::fromUtf8("继续"));
-        /* test over */
+
     }
 }
 
@@ -156,5 +154,5 @@ void nei_bottom::on_reset_clicked()
     init_timer();
     timer->stop();
     ui->start->setEnabled(true);
-    ui->start->setText(QStringLiteral("开始"));
+    ui->start->setText(QStringLiteral("开始")); //start
 }
