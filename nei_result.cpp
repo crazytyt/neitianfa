@@ -56,7 +56,7 @@ nei_result::~nei_result()
     delete ui;
 }
 
-// test data, will remove
+// four group data for stand calculation
 const double PP[2][9] = {
     {0.84, 0.81, 0.83, 0.93, 0.92, 0.85, 1.00, 0.95, 0.98},
     {0.76, 0.73, 0.92, 0.94, 0.91, 0.84, 0.60, 0.94, 0.97}
@@ -112,17 +112,17 @@ void nei_result::cal_para()
 
     }
 
-    // for test data1
-    X1[0]=63; X1[1]=56; X1[2]=57; X1[3]=58; X1[4]=50; X1[5]=48; X1[6]=49; X1[7]=55;
-    X1[8]=50; X1[9]=61; X1[10]=62; X1[11]=58; X1[12]=59; X1[13]=53; X1[14]=62;
-    X2[0]=79; X2[1]=73; X2[2]=80; X2[3]=65; X2[4]=71; X2[5]=77; X2[6]=76; X2[7]=84;
-    X2[8]=67; X2[9]=68; X2[10]=67; X2[11]=56; X2[12]=68; X2[13]=68; X2[14]=69;
+//    // for test data1
+//    X1[0]=63; X1[1]=56; X1[2]=57; X1[3]=58; X1[4]=50; X1[5]=48; X1[6]=49; X1[7]=55;
+//    X1[8]=50; X1[9]=61; X1[10]=62; X1[11]=58; X1[12]=59; X1[13]=53; X1[14]=62;
+//    X2[0]=79; X2[1]=73; X2[2]=80; X2[3]=65; X2[4]=71; X2[5]=77; X2[6]=76; X2[7]=84;
+//    X2[8]=67; X2[9]=68; X2[10]=67; X2[11]=56; X2[12]=68; X2[13]=68; X2[14]=69;
 
-    // test data2
-    X1[0]=60; X1[1]=55; X1[2]=56; X1[3]=58; X1[4]=58; X1[5]=56; X1[6]=57; X1[7]=62;
-    X1[8]=61; X1[9]=58; X1[10]=66; X1[11]=61; X1[12]=61; X1[13]=62; X1[14]=63;
-    X2[0]=74; X2[1]=70; X2[2]=74; X2[3]=76; X2[4]=67; X2[5]=73; X2[6]=74; X2[7]=75;
-    X2[8]=72; X2[9]=72; X2[10]=68; X2[11]=74; X2[12]=66; X2[13]=67; X2[14]=66;
+//    // test data2
+//    X1[0]=60; X1[1]=55; X1[2]=56; X1[3]=58; X1[4]=58; X1[5]=56; X1[6]=57; X1[7]=62;
+//    X1[8]=61; X1[9]=58; X1[10]=66; X1[11]=61; X1[12]=61; X1[13]=62; X1[14]=63;
+//    X2[0]=74; X2[1]=70; X2[2]=74; X2[3]=76; X2[4]=67; X2[5]=73; X2[6]=74; X2[7]=75;
+//    X2[8]=72; X2[9]=72; X2[10]=68; X2[11]=74; X2[12]=66; X2[13]=67; X2[14]=66;
 
 	x1sum = x2sum = 0;
 	for (i = 0; i < 15; i++) {
@@ -489,9 +489,9 @@ void nei_result::cal_para()
     QTextStream(&str) << "C=" << QString::number(C, 'g', 6) << "  ";
     QTextStream(&str) << "SP=" << QString::number(SP, 'g', 6) << "\n\n";
     QTextStream(&str) << QStringLiteral("性格类型: ") << mType << "  ";
-    QTextStream(&str) << QStringLiteral("答题合计: ") << QString::number(uS2, 'g', 6) << "  ";
-    QTextStream(&str) << QStringLiteral("错误合计: ") << QString::number(uV, 'g', 6) << "  ";
-    QTextStream(&str) << QStringLiteral("错误率: ") << QString::number(uN, 'g', 6);
+    QTextStream(&str) << QStringLiteral("答题合计: ") << mErr + mCorr << "  ";
+    QTextStream(&str) << QStringLiteral("错误合计: ") << mErr << "  ";
+    QTextStream(&str) << QStringLiteral("错误率: ") << QString::number(mErrRate, 'g', 4);
 
     ui->result->setText(str);
 

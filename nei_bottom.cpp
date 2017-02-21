@@ -27,16 +27,16 @@ void nei_bottom::timeout_action()
     ui->time->setText(str);
     if (mCurTime <= 0) {
         emit sig_30min_handle();
-        qDebug() << " --- over";
+        //qDebug() << " --- over";
         /* done the first part */
     } else if (mCurTime == 15 * 60){
 
         emit sig_15min_handle();
-        qDebug() << " --- half";
+        //qDebug() << " --- half";
     } else if (mCurTime % 60 == 0){
 
         emit sig_update_page();
-         qDebug() << " --- page: " << mOnepage->mCurrentPage;
+         //qDebug() << " --- page: " << mOnepage->mCurrentPage;
     }
 
 
@@ -110,7 +110,7 @@ void nei_bottom::init_timer()
 
 }
 
-const int time_int = 1;
+const int time_int = 1000;
 void nei_bottom::on_start_clicked()
 {
     if (mOnepage->mCurrentPage != 15) {
@@ -125,7 +125,7 @@ void nei_bottom::on_start_clicked()
         ui->start->setEnabled(false);
         timer->start(time_int);
         mOnepage->tSetPosition(1, 1);
-        qDebug() << "first --";
+        //qDebug() << "first --";
         /* pause */
     } else {
         mOnepage->clear_all();
@@ -137,7 +137,7 @@ void nei_bottom::on_start_clicked()
         mOnepage->mCurrentRow = 1;
         mOnepage->mCurrentCol = 1;
         mOnepage->tSetPosition(1, 1);
-        qDebug() << "sec --";
+        //qDebug() << "sec --";
         //ui->start->setText(QString::fromUtf8("¼ÌÐø"));
         /* test over */
     }

@@ -28,11 +28,14 @@ void nei_onepage::slot_update_pos(QStandardItem* item)
     //static int j = 0;
     Q_UNUSED(item);
 
+    mCurrentRow = item->row();
+    mCurrentCol = item->column();
+
     mCurrentCol++;
-    if (mCurrentCol == 16) {
+    if (mCurrentCol == NUM_COL) {
         mCurrentRow += 2;
-        if (mCurrentRow >= 30)
-            mCurrentRow = 29;
+        if (mCurrentRow >= NUM_ROW * 2)
+            mCurrentRow = 1;
         mCurrentCol = 1;
     }
 
