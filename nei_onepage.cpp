@@ -13,9 +13,9 @@ void nei_onepage::slot_update_page()
     mCurrentPage++;
     mCurrentRow = 1;
     mCurrentCol = 1;
-    clear_result();
-    display_onepage(mCurrentPage);
 
+    display_onepage(mCurrentPage);
+    clear_result();
 
     tSetPosition(1, 1);
 
