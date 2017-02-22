@@ -15,10 +15,10 @@ void nei_onepage::slot_update_page()
     mCurrentCol = 1;
 
     display_onepage(mCurrentPage);
-    clear_result();
+
 
     tSetPosition(1, 1);
-
+    clear_result();
 
 
 }
