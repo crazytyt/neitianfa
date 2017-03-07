@@ -31,7 +31,7 @@
    <property name="font">
     <font>
      <family>仿宋</family>
-     <pointsize>14</pointsize>
+     <pointsize>20</pointsize>
     </font>
    </property>
   </widget>
@@ -47,16 +47,16 @@
    <property name="font">
     <font>
      <family>仿宋</family>
-     <pointsize>14</pointsize>
+     <pointsize>20</pointsize>
     </font>
    </property>
   </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>350</x>
+     <x>320</x>
      <y>140</y>
-     <width>62</width>
+     <width>86</width>
      <height>321</height>
     </rect>
    </property>
@@ -66,7 +66,7 @@
       <property name="font">
        <font>
         <family>仿宋</family>
-        <pointsize>14</pointsize>
+        <pointsize>20</pointsize>
        </font>
       </property>
       <property name="text">
@@ -79,7 +79,7 @@
       <property name="font">
        <font>
         <family>仿宋</family>
-        <pointsize>14</pointsize>
+        <pointsize>20</pointsize>
        </font>
       </property>
       <property name="text">
@@ -92,7 +92,7 @@
       <property name="font">
        <font>
         <family>仿宋</family>
-        <pointsize>14</pointsize>
+        <pointsize>20</pointsize>
        </font>
       </property>
       <property name="text">
@@ -105,7 +105,7 @@
       <property name="font">
        <font>
         <family>仿宋</family>
-        <pointsize>14</pointsize>
+        <pointsize>20</pointsize>
        </font>
       </property>
       <property name="text">
@@ -118,7 +118,7 @@
       <property name="font">
        <font>
         <family>仿宋</family>
-        <pointsize>14</pointsize>
+        <pointsize>20</pointsize>
        </font>
       </property>
       <property name="text">
@@ -131,7 +131,7 @@
       <property name="font">
        <font>
         <family>仿宋</family>
-        <pointsize>14</pointsize>
+        <pointsize>20</pointsize>
        </font>
       </property>
       <property name="text">
@@ -153,7 +153,7 @@
    <property name="font">
     <font>
      <family>仿宋</family>
-     <pointsize>14</pointsize>
+     <pointsize>20</pointsize>
     </font>
    </property>
   </widget>
@@ -169,7 +169,7 @@
    <property name="font">
     <font>
      <family>仿宋</family>
-     <pointsize>14</pointsize>
+     <pointsize>20</pointsize>
     </font>
    </property>
   </widget>
@@ -188,7 +188,7 @@
    <property name="font">
     <font>
      <family>仿宋</family>
-     <pointsize>14</pointsize>
+     <pointsize>20</pointsize>
     </font>
    </property>
    <property name="maxLength">
@@ -207,7 +207,7 @@
    <property name="font">
     <font>
      <family>仿宋</family>
-     <pointsize>14</pointsize>
+     <pointsize>20</pointsize>
     </font>
    </property>
   </widget>
