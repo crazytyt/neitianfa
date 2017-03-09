@@ -13,10 +13,10 @@ int main(int argc, char *argv[])
     //w.setStyleSheet("background-color:blue;");
     w.show();
 
-    QFont font;
-    font.setPointSize(14);
+    //QFont font;
+    //font.setPointSize(14);
 //    font.setFamily(("simsun"));
-    a.setFont(font);
+    //a.setFont(font);
 
     return a.exec();
 }

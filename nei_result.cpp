@@ -8,6 +8,7 @@
 
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
+#include "xlsxchart.h"
 
 nei_result::nei_result(QWidget *parent) :
     QWidget(parent),
@@ -575,76 +576,130 @@ void nei_result::cal_para()
     QXlsx::Document xlsx;
     QXlsx::Format format1;/*设置该单元的样式*/
     format1.setFontColor(QColor(Qt::red));/*文字为红色*/
-    format1.setPatternBackgroundColor(QColor(152,251,152));/*北京颜色*/
-    format1.setFontSize(15);/*设置字体大小*/
+    format1.setPatternBackgroundColor(QColor(152,251,152));/*background 颜色*/
+    format1.setFontSize(12);/*设置字体大小*/
     format1.setHorizontalAlignment(QXlsx::Format::AlignHCenter);/*横向居中*/
     format1.setBorderStyle(QXlsx::Format::BorderThin);/*边框样式*/
-    //xlsx.write(2, 1, 12345, format1);
 
     QXlsx::Format format2;/*设置该单元的样式*/
     format2.setFontColor(QColor(Qt::blue));
     format2.setPatternBackgroundColor(QColor(152,251,0));/*北京颜色*/
-    format2.setFontSize(13);/*设置字体大小*/
+    format2.setFontSize(14);/*设置字体大小*/
     format2.setHorizontalAlignment(QXlsx::Format::AlignHCenter);/*横向居中*/
     format2.setBorderStyle(QXlsx::Format::BorderThin);/*边框样式*/
 
-    xlsx.write("A1", "M1", format1);
-    xlsx.write("B1", "M2", format1);
-    xlsx.write("C1", "R1", format1);
-    xlsx.write("D1", "R2", format1);
-    xlsx.write("E1", "S1", format1);
-    xlsx.write("F1", "S2", format1);
-    xlsx.write("G1", "V", format1);
-    xlsx.write("H1", "N", format1);
-    xlsx.write("I1", "T", format1);
+    // Write the tester's information
+    xlsx.mergeCells(QXlsx::CellRange(2, 1, 4, 13));
+    xlsx.write("A2", QStringLiteral("内田心理测试分析结果报告"), format1);
 
-    xlsx.write("A2", M1, format2);
-    xlsx.write("B2", M2, format2);
-    xlsx.write("C2", R1, format2);
-    xlsx.write("D2", R2, format2);
-    xlsx.write("E2", S1, format2);
-    xlsx.write("F2", S2, format2);
-    xlsx.write("G2", V, format2);
-    xlsx.write("H2", N, format2);
-    xlsx.write("I2", T, format2);
+    xlsx.write("A5", QStringLiteral("姓名"), format1);
+    xlsx.write("B5", QStringLiteral("年龄"), format1);
+    xlsx.write("C5", QStringLiteral("性别"), format1);
+    xlsx.write("D5", QStringLiteral("职业"), format1);
+    xlsx.write("E5", QStringLiteral("地域"), format1);
+    xlsx.write("F5", QStringLiteral("学历"), format1);
+    xlsx.write("A6", mLogin->mName, format2);
+    xlsx.write("B6", mLogin->mAge, format2);
+    xlsx.write("C6", mLogin->mSex, format2);
+    xlsx.write("D6", mLogin->mJob, format2);
+    xlsx.write("E6", mLogin->mLoc, format2);
+    xlsx.write("F6", mLogin->mDegree, format2);
 
-    xlsx.write("A3", "uM1", format1);
-    xlsx.write("B3", "uM2", format1);
-    xlsx.write("C3", "uR1", format1);
-    xlsx.write("D3", "uR2", format1);
-    xlsx.write("E3", "uS1", format1);
-    xlsx.write("F3", "uS2", format1);
-    xlsx.write("G3", "uV", format1);
-    xlsx.write("H3", "uN", format1);
-    xlsx.write("I3", "uT", format1);
+    // write the test result
+    xlsx.write("C7", "M1", format1);
+    xlsx.write("D7", "M2", format1);
+    xlsx.write("E7", "R1", format1);
+    xlsx.write("F7", "R2", format1);
+    xlsx.write("G7", "S1", format1);
+    xlsx.write("H7", "S2", format1);
+    xlsx.write("I7", "V", format1);
+    xlsx.write("J7", "N", format1);
+    xlsx.write("K7", "T", format1);
+    xlsx.write("C8", M1, format2);
+    xlsx.write("D8", M2, format2);
+    xlsx.write("E8", R1, format2);
+    xlsx.write("F8", R2, format2);
+    xlsx.write("G8", S1, format2);
+    xlsx.write("H8", S2, format2);
+    xlsx.write("I8", V, format2);
+    xlsx.write("J8", N, format2);
+    xlsx.write("K8", T, format2);
 
-    xlsx.write("A4", uM1, format2);
-    xlsx.write("B4", uM2, format2);
-    xlsx.write("C4", uR1, format2);
-    xlsx.write("D4", uR2, format2);
-    xlsx.write("E4", uS1, format2);
-    xlsx.write("F4", uS2, format2);
-    xlsx.write("G4", uV, format2);
-    xlsx.write("H4", uN, format2);
-    xlsx.write("I4", uT, format2);
+    xlsx.write("C9", "uM1", format1);
+    xlsx.write("D9", "uM2", format1);
+    xlsx.write("E9", "uR1", format1);
+    xlsx.write("F9", "uR2", format1);
+    xlsx.write("G9", "uS1", format1);
+    xlsx.write("H9", "uS2", format1);
+    xlsx.write("I9", "uV", format1);
+    xlsx.write("J9", "uN", format1);
+    xlsx.write("K9", "uT", format1);
+    xlsx.write("C10", uM1, format2);
+    xlsx.write("D10", uM2, format2);
+    xlsx.write("E10", uR1, format2);
+    xlsx.write("F10", uR2, format2);
+    xlsx.write("G10", uS1, format2);
+    xlsx.write("H10", uS2, format2);
+    xlsx.write("I10", uV, format2);
+    xlsx.write("J10", uN, format2);
+    xlsx.write("K10", uT, format2);
 
-    xlsx.write("A5", "P", format1);
-    xlsx.write("B5", "S", format1);
-    xlsx.write("C5", "C", format1);
-    xlsx.write("D5", "SP", format1);
-    xlsx.write("E5", QStringLiteral("性格类型"), format1);
-    xlsx.write("F5", QStringLiteral("答题合计"), format1);
-    xlsx.write("G5", QStringLiteral("错误合计"), format1);
-    xlsx.write("H5", QStringLiteral("错误率"), format1);
+    xlsx.write("C11", "P", format1);
+    xlsx.write("D11", "S", format1);
+    xlsx.write("E11", "C", format1);
+    xlsx.write("F11", "SP", format1);
+    xlsx.write("G11", QStringLiteral("性格类型"), format1);
+    xlsx.write("H11", QStringLiteral("答题合计"), format1);
+    xlsx.write("I11", QStringLiteral("错误合计"), format1);
+    xlsx.write("J11", QStringLiteral("错误率"), format1);
+    xlsx.write("C12", P, format2);
+    xlsx.write("D12", S, format2);
+    xlsx.write("E12", C, format2);
+    xlsx.write("F12", SP, format2);
+    xlsx.write("G12", mType, format2);
+    xlsx.write("H12", mCorr+mErr, format2);
+    xlsx.write("I12", mErr, format2);
+    xlsx.write("J12", mErrRate, format2);
 
-    xlsx.write("A6", P, format2);
-    xlsx.write("B6", S, format2);
-    xlsx.write("C6", C, format2);
-    xlsx.write("D6", SP, format2);
-    xlsx.write("E6", mType, format2);
-    xlsx.write("F6", mCorr+mErr, format2);
-    xlsx.write("G6", mErr, format2);
-    xlsx.write("H6", mErrRate, format2);
+    xlsx.write("A7", QStringLiteral("前15分钟"), format1);
+    xlsx.write("B7", QStringLiteral("后15分钟"), format1);
+    xlsx.write("A8", X1[0], format2);
+    xlsx.write("A9", X1[1], format2);
+    xlsx.write("A10", X1[2], format2);
+    xlsx.write("A11", X1[3], format2);
+    xlsx.write("A12", X1[4], format2);
+    xlsx.write("A13", X1[5], format2);
+    xlsx.write("A14", X1[6], format2);
+    xlsx.write("A15", X1[7], format2);
+    xlsx.write("A16", X1[8], format2);
+    xlsx.write("A17", X1[9], format2);
+    xlsx.write("A18", X1[10], format2);
+    xlsx.write("A19", X1[11], format2);
+    xlsx.write("A20", X1[12], format2);
+    xlsx.write("A21", X1[13], format2);
+    xlsx.write("A22", X1[14], format2);
+
+    xlsx.write("B8", X2[0], format2);
+    xlsx.write("B9", X2[1], format2);
+    xlsx.write("B10", X2[2], format2);
+    xlsx.write("B11", X2[3], format2);
+    xlsx.write("B12", X2[4], format2);
+    xlsx.write("B13", X2[5], format2);
+    xlsx.write("B14", X2[6], format2);
+    xlsx.write("B15", X2[7], format2);
+    xlsx.write("B16", X2[8], format2);
+    xlsx.write("B17", X2[9], format2);
+    xlsx.write("B18", X2[10], format2);
+    xlsx.write("B19", X2[11], format2);
+    xlsx.write("B20", X2[12], format2);
+    xlsx.write("B21", X2[13], format2);
+    xlsx.write("B22", X2[14], format2);
+
+    // draw bar chart
+    QXlsx::Chart *barChart = xlsx.insertChart(13, 3, QSize(600, 300));/*在3行13列的位置插入一个图标*/
+    barChart->setChartType(QXlsx::Chart::CT_Scatter);
+    barChart->addSeries(QXlsx::CellRange("A8:A22"));/* 加入数据*/
+    barChart->addSeries(QXlsx::CellRange("B8:B22"));/* 加入数据*/
 
     xlsx.saveAs(name);
 }

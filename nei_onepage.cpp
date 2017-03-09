@@ -54,6 +54,12 @@ nei_onepage::nei_onepage(QWidget *parent) :
 
     generate_data();
 
+    QFont font;
+    font.setPointSize(16);
+//    font.setFamily(("simsun"));
+    //a.setFont(font);
+    ui->tableView->setFont(font);
+
     model = new QStandardItemModel(NUM_ROW * 2, NUM_COL, this);
     ui->tableView->setModel(model);
     ui->tableView->setGeometry(QRect(10, 10, upscreenWidth-50, upscreenHeight-40));

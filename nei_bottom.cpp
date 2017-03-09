@@ -1,4 +1,4 @@
-#include "nei_bottom.h"
+ï»¿#include "nei_bottom.h"
 #include "ui_nei_bottom.h"
 
 #include "nei_common.h"
@@ -44,7 +44,7 @@ void nei_bottom::timeout_action()
 
 void nei_bottom::slot_15min_handle()
 {
-    ui->start->setText(QStringLiteral("¼ÌÐø"));  // continue
+    ui->start->setText(QStringLiteral("ç»§ç»­"));  // continue
     ui->start->setEnabled(true);
     timer->stop();
     mOnepage->save_onepage();
@@ -58,7 +58,7 @@ void nei_bottom::slot_30min_handle()
     mOnepage->save_onepage();
     mOnepage->clear_all();
 
-    ui->start->setText(QStringLiteral("¿ªÊ¼"));   //start
+    ui->start->setText(QStringLiteral("å¼€å§‹"));   //start
 
     ui->start->setEnabled(true);
 
@@ -154,5 +154,5 @@ void nei_bottom::on_reset_clicked()
     init_timer();
     timer->stop();
     ui->start->setEnabled(true);
-    ui->start->setText(QStringLiteral("¿ªÊ¼")); //start
+    ui->start->setText(QStringLiteral("å¼€å§‹")); //start
 }
